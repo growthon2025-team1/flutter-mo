@@ -11,7 +11,7 @@ Future<bool> checkIdDuplicate(String userId) async {
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    print(data);
+    // print(data);
     return data['success'];
   } else {
     throw Exception('아이디 중복 확인 실패: ${response.statusCode}');

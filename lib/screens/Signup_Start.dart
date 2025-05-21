@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/check_duplicate.dart';
+import 'package:my_app/api/signup_submit.dart';
 
 class SignupStartScreen extends StatefulWidget {
   const SignupStartScreen({super.key});
@@ -176,7 +177,7 @@ class _SignupStartScreenState extends State<SignupStartScreen> {
 
               Center(
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (_step == 1 && _nameCompleted) {
                       setState(() {
                         _step = 2;
@@ -189,6 +190,12 @@ class _SignupStartScreenState extends State<SignupStartScreen> {
                     } else if (_step == 4 &&
                         _rePasswordController.text == _passwordController.text &&
                         _isPasswordValid(_rePasswordController.text)) {
+                          await submitSignup(
+                            context,
+                            name: _nameController.text,
+                            id: _idController.text,
+                            password: _passwordController.text,
+                          );
                     }
                   },
                   child: Image.asset(
