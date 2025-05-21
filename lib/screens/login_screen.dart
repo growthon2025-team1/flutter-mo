@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/api/login_submit.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    idController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +73,9 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Color(0xFF929292), width: 1.5),
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: idController,
+                    decoration: const InputDecoration(
                       hintText: '아이디를 입력해 주세요.',
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -89,9 +106,10 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Color(0xFF929292), width: 1.5),
                   ),
-                  child: const TextField(
+                  child: TextField(
+                    controller: passwordController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: '비밀번호(특수문자 포함 8자 이상)',
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -100,6 +118,28 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: h * 0.02),
+
+                GestureDetector(
+                  onTap: () {
+                    final id = idController.text.trim();
+                    final password = passwordController.text;
+
+                    if (id.isEmpty || password.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('아이디와 비밀번호를 모두 입력해 주세요.')),
+                      );
+                      return;
+                    }
+
+                    submitLogin(context, id: id, password: password);
+                  },
+                  child: Image.asset(
+                    'assets/images/Group223.png',
+                    width: 346,
+                    height: 53,
+                    fit: BoxFit.contain,
+                  ),
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
