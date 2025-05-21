@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../constants.dart';
 
 Future<void> submitSignup(BuildContext context, {
   required String name,
   required String id,
   required String password,
 }) async {
-  final url = Uri.parse('http://localhost:8080/auth/signup');
+  final url = Uri.parse('$baseUrl/auth/signup');
 
   try {
     final response = await http.post(

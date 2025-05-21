@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../constants.dart';
 
 Future<Map<String, dynamic>> getUserInfo(String token) async {
   final response = await http.get(
-    Uri.parse('http://localhost:8080/auth/me'),
+    Uri.parse('$baseUrl/auth/me'),
     headers: {
       'Authorization': '$token',
     },

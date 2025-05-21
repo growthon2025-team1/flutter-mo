@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../constants.dart';
 
 Future<bool> checkIdDuplicate(String userId) async {
-  final url = Uri.parse('http://localhost:8080/auth/check-id?request=$userId');
+  final url = Uri.parse('$baseUrl/auth/check-id?request=$userId');
 
   final response = await http.post(
     url,

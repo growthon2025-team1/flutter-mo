@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../screens/home_screen.dart'; // 홈 화면 import
+import '../screens/home_screen.dart';
+import '../constants.dart';
 
 Future<void> submitLogin(
   BuildContext context, {
   required String id,
   required String password,
 }) async {
-  final url = Uri.parse('http://localhost:8080/auth/login');
+  final url = Uri.parse('$baseUrl/auth/login');
 
   try {
     final response = await http.post(
