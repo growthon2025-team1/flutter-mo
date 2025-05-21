@@ -14,9 +14,9 @@ Future<void> submitSignup(BuildContext context, {
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'username': name,
-        'nickname': id,
+        'username': id,
         'password': password,
+        'nickname': name,
         'email': null,
       }),
     );
