@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/api/check_duplicate.dart';
 
 class SignupStartScreen extends StatefulWidget {
   const SignupStartScreen({super.key});
@@ -286,12 +287,25 @@ class _SignupStartScreenState extends State<SignupStartScreen> {
                       : Image.asset('assets/images/check.png', width: 18))
                   : null,
             ),
-            onChanged: (text) {
+            onChanged: (text) async {
               setState(() {
-                _idChecked = true;
-                _idTaken = (text == 'dandan' || text == 'kitty0908');
-                _idValid = (text == 'dandan2');
+                  _idChecked = true;
               });
+
+              try {
+                final isTaken = await checkIdDuplicate(text);
+                setState(() {
+                  _idChecked = true;
+                  _idTaken = !isTaken;
+                  _idValid = isTaken;
+                });
+              } catch (e) {
+                setState(() {
+                  _idChecked = true;
+                  _idTaken = true;
+                  _idValid = false;
+                });
+              }
             },
           ),
         ),
